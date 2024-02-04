@@ -1,0 +1,29 @@
+class Solution {
+public:
+ bool isvalid(vector<int>& time){
+     for(int i=0;i<time.size()-2;i++){
+         if(time[i+2]-time[i]<60) return true;
+        
+     }
+      return false;
+ }
+    vector<string> findHighAccessEmployees(vector<vector<string>>& access_times) {
+        unordered_map<string,vector<int>>m;
+        vector<string>a;
+        for(auto x:access_times){
+            string hours = x[1].substr(0,2);
+            string min = x[1].substr(2,2);
+            int t=(stoi(hours)*60)+stoi(min);
+            m[x[0]].push_back(t);
+        }
+        for( auto k:m){
+            if(k.second.size()<3) continue;
+        
+        sort(k.second.begin(),k.second.end());
+        if(isvalid(k.second)){
+            a.push_back(k.first);
+        }
+        }
+        return a;
+    }
+};
