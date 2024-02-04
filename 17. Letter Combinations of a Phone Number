@@ -1,0 +1,30 @@
+#include <vector>
+#include <string>
+
+using namespace std;
+
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> mp{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        vector<string> res;
+        if (digits.empty()) return res;
+        string s;
+        comb(digits, 0, s, mp, res);
+        return res;
+    }
+
+    void comb(const string& digits, int id, string& s, const vector<string>& mp, vector<string>& res) {
+        if (id == digits.length()) {
+            res.push_back(s);
+            return;
+        }
+        int d = digits[id] - '0';
+        string a = mp[d];
+        for (char i : a) {
+            s.push_back(i);
+            comb(digits, id + 1, s, mp, res);
+            s.pop_back();
+        }
+    }
+};
